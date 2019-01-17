@@ -2,19 +2,11 @@
 
  :deps
  {org.clojure/clojure {:mvn/version "1.10.0-alpha4"}
-  org.clojure/tools.cli
-  {:git/url "https://github.com/clojure/tools.cli"
-   :sha "9e7850caffff45816bec821456345b8268fa72dd"}
+  org.clojure/tools.cli {:mvn/version "0.4.1"}
 
   com.cognitect/test-runner
   {:git/url "https://github.com/cognitect-labs/test-runner.git"
    :sha "3cb0a9daf1cb746259dc8309b218f9211ad3b33b"}
 
-  org.clojure/tools.nrepl       {:mvn/version "0.2.13"}
-  cider/cider-nrepl     {:mvn/version "0.18.0"}
-
-
-
-
-  }
- }
+  org.clojure/tools.nrepl {:mvn/version "0.2.13"}
+  cider/cider-nrepl {:mvn/version "0.18.0"}}}
