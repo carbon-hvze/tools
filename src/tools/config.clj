@@ -1,4 +1,6 @@
-(ns tools.config)
+(ns tools.config
+  (:require
+   [clojure.string :as str]))
 
 (defn to-env [k]
   (-> k
