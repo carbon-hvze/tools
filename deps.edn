@@ -8,5 +8,9 @@
   {:git/url "https://github.com/cognitect-labs/test-runner.git"
    :sha "3cb0a9daf1cb746259dc8309b218f9211ad3b33b"}
 
+  pack/pack.alpha
+  {:git/url "https://github.com/juxt/pack.alpha.git"
+   :sha "9b556894574e7267947d49de079eb8c2c2aca240"}
+
   org.clojure/tools.nrepl {:mvn/version "0.2.13"}
   cider/cider-nrepl {:mvn/version "0.18.0"}}}
