@@ -2,19 +2,24 @@
   (:require
    [clojure.string :as str]))
 
-(defn to-env [k]
+(defn to-edn-name [k]
   (-> k
-      name
-      str/upper-case
-      (str/replace  "-" "_")))
+      str/lower-case
+      (str/replace "_" "-")
+      keyword))
 
 (defn *get [cfg]
-  (->> cfg
-       (map (fn [[opt-name {:keys [default required parse-fn]}]]
-              (let [v (or (System/getenv (to-env opt-name))
-                          default)]
-                (if (and required (nil? v))
-                  (throw (Exception. (str "Required env var " opt-name " is not supplied")))
-                  [opt-name (cond-> v
-                              parse-fn parse-fn)]))))
-       (into {})))
+  (let [envs
+        (->> (System/getenv)
+             (map (fn [[k v]]
+                    [(to-edn-name k) v]))
+             (into {}))]
+    (->> cfg
+         (map (fn [[opt-name {:keys [default required parse-fn]}]]
+                (let [v (get envs opt-name default)]
+                  (if (and required (nil? v))
+                    (throw (Exception. (str "Required env var " opt-name " is not supplied")))
+                    [opt-name (cond-> v parse-fn parse-fn)]))))
+         (into {})
+         (merge envs)
+         doall)))
