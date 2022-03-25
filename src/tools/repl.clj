@@ -10,12 +10,12 @@
     :default 7888
     :parse-fn #(Integer/parseInt %)
     :validate [#(< 0 % 0x10000) "Must be a number between 0 and 65536"]]
-   ["-f" "--fun FUNCTION" "Function to call after repl start"]])
+   ["-f" "--fun FUNCTION" "Function to call after repl started"]])
 
 (defn -main [& args]
   (let [{{p :port f :fun} :options :as opts} (cli/parse-opts args cli-options)]
     (nrepl/start-server :port p :handler ci/cider-nrepl-handler)
-    (println "started at port " p)
+    (println "repl started at port " p)
     (when f
       (let [[*ns _] (str/split f #"\/")]
         (require `[~(symbol *ns)])
